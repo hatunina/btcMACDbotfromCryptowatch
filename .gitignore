@@ -1,0 +1,10 @@
+.idea/*
+*.iml
+.DS_store
+
+__pycache__/
+
+data/*
+log/*
+
+!.gitkeep
