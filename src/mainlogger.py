@@ -1,9 +1,21 @@
+"""
+ロガー設定、生成モジュール
+"""
+
 from logging import getLogger, StreamHandler, FileHandler, Formatter, INFO
 
 
 class Logger(object):
+    """
+    コンストラクタでロガーの出力先やフォーマット、レベルを設定しgetterでロガーを取得する。
+    """
 
     def __init__(self, log_file_path):
+        # type: (str) -> None
+        """
+        ロガーの設定を行う。
+        :param log_file_path: 出力先ファイルパス
+        """
         self.logger = getLogger("Logger")
         self.logger.setLevel(INFO)
 
@@ -21,4 +33,9 @@ class Logger(object):
         self.logger.addHandler(file_handler)
 
     def get_main_logger(self):
+        # type: (None) -> Logger
+        """
+        getter
+        :return: コンストラクタで設定したロガー
+        """
         return self.logger
