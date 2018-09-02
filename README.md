@@ -2,7 +2,7 @@
 
 ## Requirements
 ```commandline
-pip install slackweb
+pip install
 ```
 
 ## How to run
@@ -34,3 +34,9 @@ crontab -e
 ```commandline
 crontab -l
 ```
+
+## Reference
+https://cryptowatch.jp/docs/api  
+http://www.algo-fx-blog.com/macd-python-technical-indicators/  
+https://qiita.com/zaburo/items/00f364422ef3fe64f156  
+https://qiita.com/stkdev/items/992921572eefc7de4ad8  

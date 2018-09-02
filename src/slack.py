@@ -2,15 +2,14 @@
 slackに関するモジュール
 """
 
-import slackweb
-
+import requests
 
 class Slack(object):
     """
     Slack関連クラス
     """
 
-    def __init__(self, logger, url):
+    def __init__(self, logger, token, channel):
         # type: (logger, str) -> None
         """
         slackwebモジュール, loggerの設定
@@ -18,13 +17,19 @@ class Slack(object):
         :param url: 投稿先チャンネルurl
         """
         self.logger = logger
-        self.slack = slackweb.Slack(url=url)
+        self.token = token
+        self.channel = channel
 
-    def notify(self, message):
-        # type: (str) -> None
-        """
-        設定されたチャンネルへ投稿する
-        :param message: 投稿内容
-        """
-        self.logger.info(message)
-        self.slack.notify(text=message)
+    def notify_with_figure(self, massage, save_path):
+        self.logger.info('notify_with_figure')
+
+        files = {'file': open(save_path, 'rb')}
+        param = {
+            'token': self.token,
+            'channels': self.channel,
+            'filename': "filename",
+            'initial_comment': massage,
+            'title': "todays btc MACD"
+        }
+
+        requests.post(url="https://slack.com/api/files.upload", params=param, files=files)

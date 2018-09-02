@@ -5,18 +5,21 @@
 """
 
 from src.mainlogger import Logger
-from src.getbtcvolume import GetBtcVolume
+from src.btcmacd import BtcMACD
 from src.slack import Slack
 import src.util as util
 
 
 if __name__ == '__main__':
-    # 投稿するチャンネルのurl
-    slack_url = ''
     # 出力先ログファイルのsrcディレからの相対パス
     log_file_relative_path = '../log/log.log'
-    # bitflyerAPIの取得対象
-    product_code = 'FX_BTC_JPY'
+    # CryptowatchAPIのOHLC取得用パラメータ, 85400は日足
+    periods = '86400'
+    # 描画する日数
+    target_days_range = 90
+
+    token = ''
+    channel = 'bot'
 
     # logファイルの相対パスを絶対パスに変換
     abs_log_file_path = util.relative_to_abs(log_file_relative_path)
@@ -25,16 +28,12 @@ if __name__ == '__main__':
     logger = Logger(abs_log_file_path).get_main_logger()
 
 
-    getbtcvolume = GetBtcVolume(logger, product_code)
-    volume, timestamp, total_bid_depth, total_ask_depth = getbtcvolume.pipeline()
+    btcmacd = BtcMACD(logger, periods, target_days_range)
+    message, save_path = btcmacd.pipeline()
 
-    messg_1 = 'timestamp: {}, volume: {}'.format(timestamp, volume)
-    messg_2 = 'total_bid_depth: {}, total_ask_depth: {}'.format(total_bid_depth, total_ask_depth)
-
-    #slack = Slack(logger, slack_url)
-    #slack.notify(messg_1)
-    #slack.notify(messg_2)
+    slack = Slack(logger, token, channel)
+    slack.notify_with_figure(message, save_path)
 
 
-    logger.info(messg_1)
-    logger.info(messg_2)
+    logger.info(save_path)
+    logger.info(message)
