@@ -52,7 +52,6 @@ class BtcMACD(object):
 
         return message, save_path
 
-
     def generate_message(self, macd):
         self.logger.info('generate_message')
 

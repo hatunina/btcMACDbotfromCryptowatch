@@ -3,6 +3,7 @@ utilモジュール
 """
 
 import os
+import configparser
 
 
 def relative_to_abs(relative_path):
@@ -23,3 +24,18 @@ def relative_to_abs(relative_path):
     abs_path = os.path.normpath(tmp_path)
 
     return abs_path
+
+
+def read_config(config_path):
+    config = configparser.ConfigParser()
+    config.read(config_path)
+
+    config_dict = {}
+
+    config_dict['log_file_relative_path'] = config['Path']['log_file_relative_path']
+    config_dict['periods'] = config['General']['periods']
+    config_dict['target_days_range'] = int(config['General']['target_days_range'])
+    config_dict['token'] = config['Slack']['token']
+    config_dict['channel'] = config['Slack']['channel']
+
+    return config_dict

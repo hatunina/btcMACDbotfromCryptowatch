@@ -1,6 +1,7 @@
 .idea/*
 *.iml
 *.jpg
+*.ini
 .DS_store
 
 __pycache__/
