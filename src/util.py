@@ -26,9 +26,16 @@ def relative_to_abs(relative_path):
     return abs_path
 
 
-def read_config(config_path):
+def read_config(abs_config_path):
+    # type: (str) -> dict
+    """
+    設定ファイルを読み込み辞書に格納して返す
+    :param abs_config_path: 設定ファイルの絶対パス
+    :return: 設定内容をキーに持つ辞書
+    """
     config = configparser.ConfigParser()
-    config.read(config_path)
+    # 環境によってはencodingを指定しないとエラー
+    config.read(abs_config_path, encoding='utf-8')
 
     config_dict = {}
 

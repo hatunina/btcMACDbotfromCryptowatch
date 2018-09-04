@@ -1,10 +1,11 @@
-
+"""
+MACD関連モジュール
+"""
 
 import ast
 import datetime
 
 import pandas as pd
-import numpy as np
 import matplotlib
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
@@ -15,6 +16,9 @@ import src.util as util
 
 
 class BtcMACD(object):
+    """
+    MACD関連クラス
+    """
 
     def __init__(self, logger, periods, target_days_range):
         self.logger = logger
@@ -45,12 +49,12 @@ class BtcMACD(object):
         plt = self.generate_figure(macd)
 
         # 図を保存する
-        save_path = util.relative_to_abs('../figure/' + self.today.strftime("%Y-%m-%d") + '.jpg')
-        self.save_figure(plt, save_path)
+        abs_figure_path = util.relative_to_abs('../figure/' + self.today.strftime("%Y-%m-%d") + '.jpg')
+        self.save_figure(plt, abs_figure_path)
 
         message = self.generate_message(macd)
 
-        return message, save_path
+        return message, abs_figure_path
 
     def generate_message(self, macd):
         self.logger.info('generate_message')
@@ -128,10 +132,10 @@ class BtcMACD(object):
 
         return plt
 
-    def save_figure(self, plt, save_path):
+    def save_figure(self, plt, abs_figure_path):
         self.logger.info('save_figure')
-        self.logger.info('save_path: {}'.format(save_path))
-        plt.savefig(save_path)
+        self.logger.info('abs_figure_path: {}'.format(abs_figure_path))
+        plt.savefig(abs_figure_path)
 
 
 

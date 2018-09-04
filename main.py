@@ -39,11 +39,9 @@ if __name__ == '__main__':
     logger = Logger(abs_log_file_path).get_main_logger()
 
     btcmacd = BtcMACD(logger, periods, target_days_range)
-    message, save_path = btcmacd.pipeline()
+    message, abs_figure_path = btcmacd.pipeline()
 
     slack = Slack(logger, token, channel)
-    slack.notify_with_figure(message, save_path)
+    slack.notify_with_figure(message, abs_figure_path)
 
-
-    logger.info(save_path)
-    logger.info(message)
+    logger.info('DONE')
