@@ -14,14 +14,14 @@ Ato de kaku
 
 ## How to run
 ```commandline
-cd your_path/btcMACDbotfrombitflyer
+cd your_path/btcMACDbotfromCryptowatch
 python ./main.py
 ```
 
 or
 
 ```commandline
-cd your_path/btcMACDbotfrombitflyer
+cd your_path/btcMACDbotfromCryptowatch
 chmod +x main.py
 ./main.py 
 ```
@@ -54,7 +54,7 @@ crontab -e
 この際、Python実行環境やプロジェクトのパスは適宜変更する。  
 下記例では毎日朝９時５分にスクリプトを実行する。
 ```text
-5 9 * * * $HOME/.pyenv/versions/anaconda3-4.2.0/bin/python $HOME/PycharmProjects/btcMACDbotfrombitflyer/main.py
+5 9 * * * $HOME/.pyenv/versions/anaconda3-4.2.0/bin/python $HOME/PycharmProjects/btcMACDbotfromCryptowatch/main.py
 ```
 下記コマンドで設定内容を確認
 ```commandline
