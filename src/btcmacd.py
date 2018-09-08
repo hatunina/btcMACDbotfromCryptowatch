@@ -6,14 +6,10 @@ import ast
 import datetime
 
 import pandas as pd
-import matplotlib
-import matplotlib.pyplot as plt
-import matplotlib.dates as mdates
-matplotlib.use('Agg')
 
 from src.cryptowatchapi import CryptowatchAPI
+from src.btcfigure import BtcFigure
 import src.util as util
-
 
 class BtcMACD(object):
     """
@@ -25,6 +21,7 @@ class BtcMACD(object):
         self.periods = periods
         self.target_days_range = target_days_range
         self.cryptowatch_api = CryptowatchAPI(self.logger)
+        self.btc_figure = BtcFigure(self.logger)
         self.today = datetime.datetime.now()
 
     def pipeline(self):
@@ -46,11 +43,11 @@ class BtcMACD(object):
         macd = self.caluc_macd(df_adjusted_response)
 
         # 価格, MACD, signal, 差を描画する
-        plt = self.generate_figure(macd)
+        plt = self.btc_figure.generate_figure(macd)
 
         # 図を保存する
         abs_figure_path = util.relative_to_abs('../figure/' + self.today.strftime("%Y-%m-%d") + '.jpg')
-        self.save_figure(plt, abs_figure_path)
+        self.btc_figure.save_figure(plt, abs_figure_path)
 
         message = self.generate_message(macd)
 
@@ -100,43 +97,3 @@ class BtcMACD(object):
         macd['macd-signal'] = macd['macd'] - macd['signal']
 
         return macd
-
-
-    def generate_figure(self, macd):
-        self.logger.info('generate_figure')
-        # x軸を作成
-        date_range = pd.date_range(macd.iloc[0, 0], periods=len(macd), freq='d')
-
-        fig, (ax1, ax2) = plt.subplots(2, 1, gridspec_kw={'height_ratios': [3, 1]})
-
-        # 価格チャート, macd, signalのチャート, macdとsignalの差を棒グラフで描画
-        ax1.plot(date_range, macd['close'])
-        ax2.plot(date_range, macd['macd'])
-        ax2.plot(date_range, macd['signal'])
-        ax2.bar(date_range, macd['macd-signal'])
-
-        # グリッドを描画
-        ax1.grid()
-        ax2.grid()
-
-        # x軸のラベルを縦にする
-        ax1.set_xticklabels(date_range, rotation=90, size="small")
-        ax2.set_xticklabels(date_range, rotation=90, size="small")
-
-        # x軸のラベルの日付のフォーマットを調整
-        ax1.xaxis.set_major_formatter(mdates.DateFormatter('%m-%d'))
-        ax2.xaxis.set_major_formatter(mdates.DateFormatter('%m-%d'))
-
-        # ラベルが被らないように調整
-        fig.tight_layout()
-
-        return plt
-
-    def save_figure(self, plt, abs_figure_path):
-        self.logger.info('save_figure')
-        self.logger.info('abs_figure_path: {}'.format(abs_figure_path))
-        plt.savefig(abs_figure_path)
-
-
-
-
