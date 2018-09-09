@@ -15,15 +15,21 @@ class BtcFigure(object):
     """
 
     def __init__(self, logger):
+        # type: (logger) -> None
+        """
+        コンストラクタ
+        :param logger: logger
+        """
         self.logger = logger
 
     def generate_figure(self, macd):
         # type: (df) -> matplotlib.pyplot
         """
-
-        :param macd:
-        :return:
+        macdを格納したdataframeから図を作成する
+        :param macd: dataframe
+        :return: plt
         """
+
         self.logger.info('generate_figure')
         # x軸を作成
         date_range = pd.date_range(macd.iloc[0, 0], periods=len(macd), freq='d')
@@ -56,10 +62,9 @@ class BtcFigure(object):
     def save_figure(self, plt, abs_figure_path):
         # type: (matplotlib.pyplot, str) -> None
         """
-
-        :param plt:
-        :param abs_figure_path:
-        :return:
+        渡されたpltをabs_figure_pathに保存する
+        :param plt: 図が格納されたplt
+        :param abs_figure_path: 保存先の絶対パス
         """
         self.logger.info('save_figure')
         self.logger.info('abs_figure_path: {}'.format(abs_figure_path))

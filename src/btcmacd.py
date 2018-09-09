@@ -11,20 +11,33 @@ from src.cryptowatchapi import CryptowatchAPI
 from src.btcfigure import BtcFigure
 import src.util as util
 
+
 class BtcMACD(object):
     """
     MACD関連クラス
     """
 
     def __init__(self, logger, periods, target_days_range):
+        # type: (logger, str, str) -> None
+        """
+        コンストラクタ, 変数の設定と他モジュールのnew
+        :param logger: logger
+        :param periods: 取得する足
+        :param target_days_range: 描画に使う日数
+        """
         self.logger = logger
         self.periods = periods
         self.target_days_range = target_days_range
+        self.today = datetime.datetime.now()
         self.cryptowatch_api = CryptowatchAPI(self.logger)
         self.btc_figure = BtcFigure(self.logger)
-        self.today = datetime.datetime.now()
 
     def pipeline(self):
+        # type: (None) -> (str, str)
+        """
+        各関数を呼び出すパイプライン, APIからデータを取得しMACDの計算、図の保存を行い投稿するメッセージを作成する
+        :return: Slackへの投稿メッセージ, 図を保存した絶対パス
+        """
         self.logger.info('BtcMACD.pipeline')
         self.logger.info('today: {}'.format(self.today))
         self.logger.info('target_days_range: {}'.format(self.target_days_range))
@@ -54,6 +67,12 @@ class BtcMACD(object):
         return message, abs_figure_path
 
     def generate_message(self, macd):
+        # type: (df) -> str
+        """
+        macdを格納したdataframeを受け取り、値によってメッセージを作成する
+        :param macd: macdを格納したdataframe
+        :return: Slackに投稿するメッセージ
+        """
         self.logger.info('generate_message')
 
         today_macd_diff_signal = int(macd[macd['date'] == self.today.strftime("%Y-%m-%d")]['macd-signal'])
@@ -66,6 +85,12 @@ class BtcMACD(object):
         return message
 
     def extract_dataframe(self, df_adjusted_response):
+        # type: (df) -> df
+        """
+        APIから取得したデータを格納したdataframeから対象期間を抜き出す
+        :param df_adjusted_response: APIから取得したデータを格納したdataframe
+        :return: 対象期間のdataframe
+        """
         self.logger.info('extract_dataframe')
 
         target_days = (self.today - datetime.timedelta(days=self.target_days_range)).strftime("%Y-%m-%d")
@@ -74,6 +99,12 @@ class BtcMACD(object):
         return df_adjusted_response
 
     def response_to_dataframe(self, response):
+        # type: (response) -> df
+        """
+        APIから取得したresponseをdataframeへ変換する
+        :param response: APIのresponse
+        :return: 変換したdataframe
+        """
         self.logger.info('response_to_dataframe')
 
         dict_response = ast.literal_eval(response.text)
@@ -85,6 +116,12 @@ class BtcMACD(object):
         return df_adjusted_response
 
     def caluc_macd(self, df_adjusted_response):
+        # type: (df) -> df
+        """
+        macdを計算する
+        :param df_adjusted_response: 元のdataframe
+        :return: 計算したmacdを格納したdataframe
+        """
         self.logger.info('caluc_macd')
 
         macd = pd.DataFrame()
