@@ -39,6 +39,8 @@ log_file_relative_path: ../log/log.log
 periods: 86400
 # 描画する日数
 target_days_range: 90
+# Slack投稿メッサージ作成時のトレンド転換判定閾値
+msg_threshold: 3000
 
 [Slack]
 token: your slack token
