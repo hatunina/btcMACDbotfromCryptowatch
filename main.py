@@ -23,7 +23,7 @@ if __name__ == '__main__':
     # logger初期化
     logger = Logger(abs_log_file_path).get_main_logger()
 
-    btcmacd = BtcMACD(logger, config_dict['periods'], config_dict['target_days_range'])
+    btcmacd = BtcMACD(logger, config_dict['periods'], config_dict['target_days_range'], config_dict['msg_threshold'])
     message, abs_figure_path = btcmacd.pipeline()
 
     slack = Slack(logger, config_dict['token'], config_dict['channel'])

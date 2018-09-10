@@ -17,17 +17,19 @@ class BtcMACD(object):
     MACD関連クラス
     """
 
-    def __init__(self, logger, periods, target_days_range):
+    def __init__(self, logger, periods, target_days_range, msg_threshold):
         # type: (logger, str, str) -> None
         """
         コンストラクタ, 変数の設定と他モジュールのnew
         :param logger: logger
         :param periods: 取得する足
         :param target_days_range: 描画に使う日数
+        :param msg_threshold: message作成時のトレンド転換判定閾値
         """
         self.logger = logger
         self.periods = periods
         self.target_days_range = target_days_range
+        self.msg_threshold = msg_threshold
         self.today = datetime.datetime.now()
         self.cryptowatch_api = CryptowatchAPI(self.logger)
         self.btc_figure = BtcFigure(self.logger)
@@ -77,7 +79,7 @@ class BtcMACD(object):
 
         today_macd_diff_signal = int(macd[macd['date'] == self.today.strftime("%Y-%m-%d")]['macd-signal'])
 
-        if 3000 >= today_macd_diff_signal >= -3000:
+        if self.msg_threshold >= today_macd_diff_signal >= -self.msg_threshold:
             message = 'MACDとsignalの差は{}！トレンド転換？'.format(today_macd_diff_signal)
         else:
             message = 'MACDとsignalの差は{}！トレンド継続！'.format(today_macd_diff_signal)
