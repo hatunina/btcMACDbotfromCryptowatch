@@ -28,7 +28,7 @@ chmod +x main.py
 
 ## Setting
 ### Config
-`config`ディレクトリ直下に`config.ini`を作成する。
+`config`ディレクトリの`config_default.ini`を`config.ini`にリネームし  
 下記のように設定項目を記述する。
 ```ini
 [Path]

@@ -1,12 +1,13 @@
 .idea/*
 *.iml
 *.jpg
-*.ini
 .DS_store
 
 __pycache__/
 
 data/*
 log/*
+
+config.ini
 
 !.gitkeep
