@@ -25,5 +25,5 @@ class CryptowatchAPI(object):
         :return: response
         """
         self.logger.info('get_ohlc')
-        self.logger.info('dict_periods: {}'.format(dict_periods))
+        self.logger.info('periods: {}'.format(dict_periods['periods']))
         return requests.get(self.ohlc_url, params=dict_periods)

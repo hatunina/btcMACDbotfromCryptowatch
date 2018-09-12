@@ -40,9 +40,10 @@ class BtcMACD(object):
         各関数を呼び出すパイプライン, APIからデータを取得しMACDの計算、図の保存を行い投稿するメッセージを作成する
         :return: Slackへの投稿メッセージ, 図を保存した絶対パス
         """
-        self.logger.info('BtcMACD.pipeline')
-        self.logger.info('today: {}'.format(self.today))
-        self.logger.info('target_days_range: {}'.format(self.target_days_range))
+        self.logger.info('pipeline')
+        self.logger.info('attr today: {}'.format(self.today))
+        self.logger.info('attr target_days_range: {}'.format(self.target_days_range))
+        self.logger.info('attr msg_threshold: {}'.format(self.msg_threshold))
 
         # apiを叩く
         dict_periods = {'periods': self.periods}
@@ -83,6 +84,8 @@ class BtcMACD(object):
             message = 'MACDとsignalの差は{}！トレンド転換？'.format(today_macd_diff_signal)
         else:
             message = 'MACDとsignalの差は{}！トレンド継続！'.format(today_macd_diff_signal)
+
+        self.logger.info('message: {}'.format(message))
 
         return message
 

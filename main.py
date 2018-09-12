@@ -23,6 +23,9 @@ if __name__ == '__main__':
     # logger初期化
     logger = Logger(abs_log_file_path).get_main_logger()
 
+    logger.info('START')
+    logger.info('read config abs path: {}'.format(abs_log_file_path))
+
     btcmacd = BtcMACD(logger, config_dict['periods'], config_dict['target_days_range'], config_dict['msg_threshold'])
     message, abs_figure_path = btcmacd.pipeline()
 
