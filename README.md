@@ -10,7 +10,12 @@ pip install configparser
 ```
 
 ## Register for slack bot
-Ato de kaku
+Slack App からBotsを検索し設定する。  
+<br>
+![figure_1](https://github.com/hatunina/btcMACDbotfromCryptowatch/blob/master/image/image1.png)
+<br>
+その後、メッセージを投稿させるチャンネルへBotを参加させる。  
+
 
 ## How to run
 ```commandline
@@ -62,6 +67,10 @@ crontab -e
 ```commandline
 crontab -l
 ```
+
+## Demo
+
+![figure_1](https://github.com/hatunina/btcMACDbotfromCryptowatch/blob/master/image/image2.png)
 
 ## Reference
 https://cryptowatch.jp/docs/api  
