@@ -59,9 +59,11 @@ crontab -e
 ```
 設定ファイルに以下を記述する。  
 この際、Python実行環境やプロジェクトのパスは適宜変更する。  
-下記例では毎日朝９時５分にスクリプトを実行する。
+下記例では毎日朝９時５分にスクリプトを実行する。  
+また、`cleaner.sh`では30日前のログや生成された画像を削除している。  
 ```text
 5 9 * * * $HOME/.pyenv/versions/anaconda3-4.2.0/bin/python $HOME/PycharmProjects/btcMACDbotfromCryptowatch/main.py
+5 9 * * * /bin/bash $HOME/PycharmProjects/btcMACDbotfromCryptowatch/shell/cleaner.sh
 ```
 下記コマンドで設定内容を確認
 ```commandline
@@ -77,3 +79,4 @@ https://cryptowatch.jp/docs/api
 http://www.algo-fx-blog.com/macd-python-technical-indicators/  
 https://qiita.com/zaburo/items/00f364422ef3fe64f156  
 https://qiita.com/stkdev/items/992921572eefc7de4ad8  
+https://www.softel.co.jp/blogs/tech/archives/4503  

@@ -39,7 +39,7 @@ def read_config(abs_config_path):
 
     config_dict = {}
 
-    config_dict['log_file_relative_path'] = config['Path']['log_file_relative_path']
+    config_dict['log_dir_relative_path'] = config['Path']['log_dir_relative_path']
     config_dict['periods'] = config['General']['periods']
     config_dict['target_days_range'] = int(config['General']['target_days_range'])
     config_dict['msg_threshold'] = int(config['General']['msg_threshold'])
