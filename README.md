@@ -1,6 +1,9 @@
 # btcMACDbotfrombitflyer
+
+
 ## What's this?
 CryptowatchAPIからBTCの価格を取得しMACDとsignalの差、チャートをSlackへ投稿するBotです。
+
 
 ## Requirements
 ```commandline
@@ -8,6 +11,7 @@ pip install pandas
 pip install matplotlib
 pip install configparser
 ```
+
 
 ## Register for slack bot
 Slack App からBotsを検索し設定する。  
@@ -17,27 +21,13 @@ Slack App からBotsを検索し設定する。
 その後、メッセージを投稿させるチャンネルへBotを参加させる。  
 
 
-## How to run
-```commandline
-cd your_path/btcMACDbotfromCryptowatch
-python ./main.py
-```
-
-or
-
-```commandline
-cd your_path/btcMACDbotfromCryptowatch
-chmod +x main.py
-./main.py 
-```
-
 ## Setting
 ### Config
 `config`ディレクトリの`config_default.ini`を`config.ini`にリネームし  
 下記のように設定項目を記述する。
 ```ini
 [Path]
-log_file_relative_path: ../log/log.log
+log_dir_relative_path: ../log/
 
 [General]
 # CryptowatchAPIのOHLC取得用パラメータ, 85400は日足
@@ -70,9 +60,26 @@ crontab -e
 crontab -l
 ```
 
+
+## How to run
+```commandline
+cd your_path/btcMACDbotfromCryptowatch
+python ./main.py
+```
+
+or
+
+```commandline
+cd your_path/btcMACDbotfromCryptowatch
+chmod +x main.py
+./main.py 
+```
+
+
 ## Demo
 
 ![figure_1](https://github.com/hatunina/btcMACDbotfromCryptowatch/blob/master/image/image2.png)
+
 
 ## Reference
 https://cryptowatch.jp/docs/api  
