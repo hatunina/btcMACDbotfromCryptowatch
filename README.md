@@ -52,8 +52,9 @@ crontab -e
 下記例では毎日朝９時５分にスクリプトを実行する。  
 また、`cleaner.sh`では30日前のログや生成された画像を削除している。  
 ```text
-5 9 * * * $HOME/.pyenv/versions/anaconda3-4.2.0/bin/python $HOME/PycharmProjects/btcMACDbotfromCryptowatch/main.py
+LANG="ja_JP.UTF-8"
 5 9 * * * /bin/bash $HOME/PycharmProjects/btcMACDbotfromCryptowatch/shell/cleaner.sh
+5 9 * * * $HOME/.pyenv/versions/anaconda3-4.2.0/bin/python $HOME/PycharmProjects/btcMACDbotfromCryptowatch/main.py
 ```
 下記コマンドで設定内容を確認
 ```commandline
