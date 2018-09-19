@@ -12,8 +12,10 @@ from src.slack import Slack
 import src.util as util
 
 
-if __name__ == '__main__':
+def main():
+    # 設定ファイルの相対パス
     config_relative_path = '../config/config.ini'
+    # 絶対パスに変換
     abs_config_path = util.relative_to_abs(config_relative_path)
 
     # 設定ファイルを読み込む
@@ -31,10 +33,16 @@ if __name__ == '__main__':
     logger.info('START')
     logger.info('read config abs path: {}'.format(abs_config_path))
 
+    # MACDの計算と図, メッセージの作成
     btcmacd = BtcMACD(logger, config_dict['periods'], config_dict['target_days_range'], config_dict['msg_threshold'])
     message, abs_figure_path = btcmacd.pipeline()
 
+    # Slackへ投稿
     slack = Slack(logger, config_dict['token'], config_dict['channel'])
     slack.notify_with_figure(message, abs_figure_path)
 
     logger.info('DONE')
+
+
+if __name__ == '__main__':
+    main()
