@@ -2,7 +2,9 @@
 slackに関するモジュール
 """
 
+import sys
 import requests
+import src.util as util
 
 
 class Slack(object):
@@ -31,7 +33,12 @@ class Slack(object):
         """
         self.logger.info('notify_with_figure')
 
-        files = {'file': open(abs_figure_path, 'rb')}
+        if util.is_exits(abs_figure_path):
+            # pythonではif文やfor文でスコープが作られないので注意
+            files = {'file': open(abs_figure_path, 'rb')}
+        else:
+            self.logger.info('figure is not found: {}'.format(abs_figure_path))
+            sys.exit(1)
 
         param = {
             'token': self.token,

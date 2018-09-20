@@ -3,6 +3,7 @@ utilモジュール
 """
 
 import os
+import sys
 import configparser
 
 
@@ -34,8 +35,16 @@ def read_config(abs_config_path):
     :return: 設定内容をキーに持つ辞書
     """
     config = configparser.ConfigParser()
-    # 環境によってはencodingを指定しないとエラー
-    config.read(abs_config_path, encoding='utf-8')
+
+    if is_exits(abs_config_path):
+        # 環境によってはencodingを指定しないとエラー
+        config.read(abs_config_path, encoding='utf-8')
+    else:
+        try:
+            raise AttributeError("file or dir not found")
+        except AttributeError as e:
+            print('{}: {}'.format(e, abs_config_path))
+            sys.exit(1)
 
     config_dict = {}
 
@@ -47,3 +56,13 @@ def read_config(abs_config_path):
     config_dict['channel'] = config['Slack']['channel']
 
     return config_dict
+
+
+def is_exits(check_path):
+    # type: (str) -> bool
+    """
+    引数のパスにファイル/ディレクトリが存在するかチェック
+    :param check_path: ファイルもしくはディレクトリのパス
+    :return: 存在するかどうかのbool
+    """
+    return os.path.exists(check_path)
