@@ -9,7 +9,11 @@ CryptowatchAPIからBTCの価格を取得しMACDとsignalの差、チャート�
 ```commandline
 pip install pandas
 pip install matplotlib
-pip install configparser
+pip install requests
+```
+or
+```commandline
+pip install -r requirements.txt
 ```
 
 
