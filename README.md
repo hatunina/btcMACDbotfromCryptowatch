@@ -6,13 +6,13 @@ CryptowatchAPIからBTCの価格を取得しMACDとsignalの差、チャート�
 
 
 ## Requirements
-```commandline
+```bash
 pip install pandas
 pip install matplotlib
 pip install requests
 ```
 or
-```commandline
+```bash
 pip install -r requirements.txt
 ```
 
@@ -48,7 +48,7 @@ channel: your slack channel
 
 ### Cron
 下記コマンドでcronの設定ファイルを開く。  
-```commandline
+```bash
 crontab -e
 ```
 設定ファイルに以下を記述する。  
@@ -61,20 +61,20 @@ LANG="ja_JP.UTF-8"
 5 9 * * * $HOME/.pyenv/versions/anaconda3-4.2.0/bin/python $HOME/PycharmProjects/btcMACDbotfromCryptowatch/main.py
 ```
 下記コマンドで設定内容を確認
-```commandline
+```bash
 crontab -l
 ```
 
 
 ## How to run
-```commandline
+```bash
 cd your_path/btcMACDbotfromCryptowatch
 python ./main.py
 ```
 
 or
 
-```commandline
+```bash
 cd your_path/btcMACDbotfromCryptowatch
 chmod +x main.py
 ./main.py 
@@ -82,8 +82,7 @@ chmod +x main.py
 
 
 ## Demo
-
-![figure_1](https://github.com/hatunina/btcMACDbotfromCryptowatch/blob/master/image/image2.png)
+<img src="https://github.com/hatunina/btcMACDbotfromCryptowatch/blob/master/image/image2.png" width="640px">
 
 
 ## Reference
